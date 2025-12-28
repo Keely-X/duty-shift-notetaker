@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Duty Shift Notetaker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>Duty Shift Notetaker</h1>
+
+<section class="instructions">
+  <div class="instructions-header" onclick="toggleInstructions()">
+    <h2>How to use</h2>
+    <span class="toggle-icon" id="instructionsToggle">−</span>
+  </div>
+  <div class="instructions-content" id="instructionsContent">
+    <p>
+      <strong>Quick Links:</strong> Easy access to duty and incident forms.
+    </p>
+    <p>
+      <strong>Copy Button:</strong> Copy your rounds/lockouts notes to paste into duty forms. 
+    </p>
+    <p>
+      <strong>Auto-Save:</strong> Your notes are saved automatically, even if you close the page.
+    </p>
+    <p>
+      <strong>Recent archive:</strong> View notes from your most recent shift.
+    </p>
+        <p>
+      <strong>End Shift:</strong> Click "End & Reset Shift" to delete all data from current shift. 
+    </p>
+  </div>
+</section>
+
+  <section>
+    <h2>Reports Checklist</h2>
+    <label><input type="checkbox" onchange="toggleReport(1)"> 8pm Round</label><br>
+    <label><input type="checkbox" onchange="toggleReport(2)"> U18 Curfew Check</label><br>
+    <label><input type="checkbox" onchange="toggleReport(3)"> 10pm Round</label><br>
+    <label><input type="checkbox" onchange="toggleReport(4)"> Lockouts</label><br>
+    <label><input type="checkbox" onchange="toggleReport(5)"> Project 100</label>
+  </section>
+
+  <section>
+    <h2>Quick Links</h2>
+    <div class="links-container">
+      <a href="https://app.smartsheet.com/b/form/93be0b70828c49e28c2e3690cd2adfd8" target="_blank" class="link-button">Duty Form</a>
+      <a href="https://app.smartsheet.com/b/form/d3c95bc5c09e4cb686fbf956dc77e161" target="_blank" class="link-button">Incident Form</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Rounds</h2>
+
+    <label>
+      Round Time:
+      <select id="roundTimeSelect">
+        <option value="8pm">8pm Round</option>
+        <option value="10pm">10pm Round</option>
+      </select>
+    </label>
+
+    <label>
+      Route:
+      <select id="routeSelect" onchange="updateLocations()">
+        <option value="A">Academic Commons | Conservatory</option>
+        <option value="B">Basement | Ground | Level 9 | Level 10</option>
+      </select>
+    </label>
+
+    <div id="locationsContainer"></div>
+
+    <div class="section-header">
+      <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Round History</h3>
+      <div class="copy-buttons-group">
+        <button class="copy-btn" onclick="copyRounds('8pm')" title="Copy 8pm rounds">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy 8pm
+        </button>
+        <button class="copy-btn" onclick="copyRounds('10pm')" title="Copy 10pm rounds">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy 10pm
+        </button>
+      </div>
+    </div>
+    <ul id="roundsList"></ul>
+  </section>
+
+  <section>
+    <h2>Lockouts</h2>
+    <input id="nameInput" type="text" placeholder="Name" style="width: 100%;" />
+    <input id="roomInput" type="text" placeholder="Room Number" style="width: 100%;" />
+    <button onclick="addLockout()">Add Lockout</button>
+    
+    <div class="section-header">
+      <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Lockout History</h3>
+      <div class="copy-buttons-group">
+        <button class="copy-btn" onclick="copyLockoutsTimeAndName()" title="Copy Names">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Names
+        </button>
+        <button class="copy-btn" onclick="copyLockoutsRooms()" title="Copy Room Numbers">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          Copy Rooms
+        </button>
+      </div>
+    </div>
+    <ul id="lockoutsList"></ul>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <h2>Project 100</h2>
+      <button class="copy-btn" onclick="copyProject100()" title="Copy Project 100 notes">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy
+      </button>
+    </div>
+    <textarea id="project100Notes" placeholder="Enter who you've seen here..." rows="6"></textarea>
+  </section>
+
+  <div class="shift-buttons">
+    <button class="view-last-btn" onclick="viewRecent()">View Recent</button>
+    <button class="reset-btn" onclick="resetShift()">Reset Notes</button>
+  </div>
+
+  <!-- Modal for viewing last shift -->
+  <div id="lastShiftModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Last Shift Archive</h2>
+      <div id="lastShiftData"></div>
+    </div>
+  </div>
+
+  <!-- Modal for editing rounds -->
+  <div id="editRoundModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditRoundModal()">&times;</span>
+      <h2>Edit Round</h2>
+      <div class="edit-form">
+        <label>
+          Round Time:
+          <select id="editRoundTime">
+            <option value="8pm">8pm Round</option>
+            <option value="10pm">10pm Round</option>
+          </select>
+        </label>
+        <label>
+          Location:
+          <input type="text" id="editLocation" />
+        </label>
+        <label>
+          Round Number:
+          <input type="number" id="editRoundNumber" />
+        </label>
+        <button onclick="saveRoundEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for editing lockouts -->
+  <div id="editLockoutModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditLockoutModal()">&times;</span>
+      <h2>Edit Lockout</h2>
+      <div class="edit-form">
+        <label>
+          Name:
+          <input type="text" id="editLockoutName" />
+        </label>
+        <label>
+          Room Number:
+          <input type="text" id="editLockoutRoom" />
+        </label>
+        <button onclick="saveLockoutEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+
