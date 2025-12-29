@@ -200,7 +200,7 @@ function copyRounds(roundTime) {
   }
 
   const text = filteredRounds
-    .map(r => `${r.location} - Round ${r.round} (${r.time})`)
+    .map(r => `${r.location} - ${r.round}`)
     .join('\n');
 
   copyToClipboard(text, `${roundTime} rounds copied to clipboard!`);
@@ -269,10 +269,6 @@ function viewRecent() {
   const rounds10pm = shift.rounds.filter(r => r.roundTime === '10pm');
 
   let html = `
-    <div class="shift-info">
-      <p><strong>Shift Started:</strong> ${startDate}</p>
-      <p><strong>Shift Ended:</strong> ${endDate}</p>
-    </div>
 
     <h3>Reports Completed</h3>
     <ul class="archive-list">
@@ -285,12 +281,12 @@ function viewRecent() {
 
     <h3>8pm Rounds (${rounds8pm.length})</h3>
     <ul class="archive-list">
-      ${rounds8pm.length > 0 ? rounds8pm.map(r => `<li>${r.location} - Round ${r.round} (${r.time})</li>`).join('') : '<li>No 8pm rounds recorded</li>'}
+      ${rounds8pm.length > 0 ? rounds8pm.map(r => `<li>${r.location} -  ${r.round}</li>`).join('') : '<li>No 8pm rounds recorded</li>'}
     </ul>
 
     <h3>10pm Rounds (${rounds10pm.length})</h3>
     <ul class="archive-list">
-      ${rounds10pm.length > 0 ? rounds10pm.map(r => `<li>${r.location} - Round ${r.round} (${r.time})</li>`).join('') : '<li>No 10pm rounds recorded</li>'}
+      ${rounds10pm.length > 0 ? rounds10pm.map(r => `<li>${r.location} - ${r.round}</li>`).join('') : '<li>No 10pm rounds recorded</li>'}
     </ul>
 
     <h3>Lockouts (${shift.lockouts.length})</h3>
@@ -362,7 +358,7 @@ function render() {
   document.getElementById("roundsList").innerHTML =
     currentShift.rounds.map((r, index) =>
       `<li>
-        <span class="entry-content"><strong>[${r.roundTime}]</strong> ${r.location} - Round ${r.round} (${r.time})</span>
+        <span class="entry-content"><strong>[${r.roundTime}]</strong> ${r.location} - ${r.round}</span>
         <div class="entry-actions">
           <button class="icon-btn edit-btn" onclick="editRound(${index})" title="Edit">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
