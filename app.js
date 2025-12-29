@@ -410,7 +410,13 @@ function toggleInstructions() {
   icon.textContent = content.classList.contains("collapsed") ? "+" : "−";
 }
 
-function toggleSection(sectionId) {
+function toggleSection(sectionId, event) {
+  
+  // Prevent if clicking on a button
+  if (event && event.target.closest('button')) {
+    return;
+  }
+  
   const content = document.getElementById(sectionId);
   const toggleId = sectionId.replace('Content', 'Toggle');
   const icon = document.getElementById(toggleId);

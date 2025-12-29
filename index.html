@@ -52,7 +52,7 @@
   </section>
 
 <section>
-  <div class="section-collapse-header" onclick="toggleSection('roundsContent')">
+  <div class="section-collapse-header" onclick="toggleSection('roundsContent', event)">
     <h2>Rounds</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
       <button class="copy-btn" onclick="copyRounds('8pm'); event.stopPropagation();" title="Copy 8pm rounds">
@@ -97,7 +97,7 @@
 </section>
 
 <section>
-  <div class="section-collapse-header" onclick="toggleSection('lockoutsContent')">
+  <div class="section-collapse-header" onclick="toggleSection('lockoutsContent', event)">
     <h2>Lockouts</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
       <button class="copy-btn" onclick="copyLockoutsTimeAndName(); event.stopPropagation();" title="Copy Names">
@@ -128,7 +128,7 @@
 </section>
 
 <section>
-  <div class="section-collapse-header" onclick="toggleSection('project100Content')">
+  <div class="section-collapse-header" onclick="toggleSection('project100Content', event)">
     <h2>Project 100</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
       <button class="copy-btn" onclick="copyProject100(); event.stopPropagation();" title="Copy Project 100 notes">
