@@ -262,9 +262,6 @@ function viewRecent() {
   const shift = JSON.parse(lastShift);
   const dataContainer = document.getElementById("lastShiftData");
 
-  const startDate = new Date(shift.startedAt).toLocaleString();
-  const endDate = new Date(shift.endedAt).toLocaleString();
-
   const rounds8pm = shift.rounds.filter(r => r.roundTime === '8pm');
   const rounds10pm = shift.rounds.filter(r => r.roundTime === '10pm');
 
@@ -408,6 +405,15 @@ function render() {
 function toggleInstructions() {
   const content = document.getElementById("instructionsContent");
   const icon = document.getElementById("instructionsToggle");
+  
+  content.classList.toggle("collapsed");
+  icon.textContent = content.classList.contains("collapsed") ? "+" : "−";
+}
+
+function toggleSection(sectionId) {
+  const content = document.getElementById(sectionId);
+  const toggleId = sectionId.replace('Content', 'Toggle');
+  const icon = document.getElementById(toggleId);
   
   content.classList.toggle("collapsed");
   icon.textContent = content.classList.contains("collapsed") ? "+" : "−";

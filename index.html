@@ -51,9 +51,28 @@
     </div>
   </section>
 
-  <section>
+<section>
+  <div class="section-collapse-header" onclick="toggleSection('roundsContent')">
     <h2>Rounds</h2>
-
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="copy-btn" onclick="copyRounds('8pm'); event.stopPropagation();" title="Copy 8pm rounds">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy 8pm
+      </button>
+      <button class="copy-btn" onclick="copyRounds('10pm'); event.stopPropagation();" title="Copy 10pm rounds">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy 10pm
+      </button>
+      <span class="toggle-icon" id="roundsToggle">−</span>
+    </div>
+  </div>
+  <div class="section-content" id="roundsContent">
     <label>
       Round Time:
       <select id="roundTimeSelect">
@@ -72,76 +91,67 @@
 
     <div id="locationsContainer"></div>
 
-    <div class="section-header">
-      <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Round History</h3>
-      <div class="copy-buttons-group">
-        <button class="copy-btn" onclick="copyRounds('8pm')" title="Copy 8pm rounds">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy 8pm
-        </button>
-        <button class="copy-btn" onclick="copyRounds('10pm')" title="Copy 10pm rounds">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy 10pm
-        </button>
-      </div>
-    </div>
+    <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Round History</h3>
     <ul id="roundsList"></ul>
-  </section>
+  </div>
+</section>
 
-  <section>
+<section>
+  <div class="section-collapse-header" onclick="toggleSection('lockoutsContent')">
     <h2>Lockouts</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="copy-btn" onclick="copyLockoutsTimeAndName(); event.stopPropagation();" title="Copy Names">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy Names
+      </button>
+      <button class="copy-btn" onclick="copyLockoutsRooms(); event.stopPropagation();" title="Copy Room Numbers">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy Rooms
+      </button>
+      <span class="toggle-icon" id="lockoutsToggle">−</span>
+    </div>
+  </div>
+  <div class="section-content" id="lockoutsContent">
     <input id="nameInput" type="text" placeholder="Name" style="width: 100%;" />
     <input id="roomInput" type="text" placeholder="Room Number" style="width: 100%;" />
     <button onclick="addLockout()">Add Lockout</button>
     
-    <div class="section-header">
-      <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Lockout History</h3>
-      <div class="copy-buttons-group">
-        <button class="copy-btn" onclick="copyLockoutsTimeAndName()" title="Copy Names">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy Names
-        </button>
-        <button class="copy-btn" onclick="copyLockoutsRooms()" title="Copy Room Numbers">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy Rooms
-        </button>
-      </div>
-    </div>
+    <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Lockout History</h3>
     <ul id="lockoutsList"></ul>
-  </section>
+  </div>
+</section>
 
-  <section>
-    <div class="section-header">
-      <h2>Project 100</h2>
-      <button class="copy-btn" onclick="copyProject100()" title="Copy Project 100 notes">
+<section>
+  <div class="section-collapse-header" onclick="toggleSection('project100Content')">
+    <h2>Project 100</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="copy-btn" onclick="copyProject100(); event.stopPropagation();" title="Copy Project 100 notes">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
         </svg>
         Copy
       </button>
+      <span class="toggle-icon" id="project100Toggle">−</span>
     </div>
+  </div>
+  <div class="section-content" id="project100Content">
     <textarea id="project100Notes" placeholder="Enter who you've seen here..." rows="6"></textarea>
-  </section>
+  </div>
+</section>
 
   <div class="shift-buttons">
     <button class="view-last-btn" onclick="viewRecent()">View Recent</button>
     <button class="reset-btn" onclick="resetShift()">Reset Notes</button>
   </div>
 
-  <!-- Modal for viewing last shift ->
+  <!-- Modal for viewing last shift -->
   <div id="lastShiftModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
