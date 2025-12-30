@@ -51,6 +51,27 @@ h1 {
   font-weight: 500;
 }
 
+.header-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.header-container {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.header-container h1 {
+  margin: 0;
+  text-align: center;
+  color: #02c6a2;
+}
+
+.date-container {
+  position: relative;
+  text-align: center;
+}
+
 .dark-mode-toggle {
   background: #02c6a2;
   color: white;
@@ -64,6 +85,10 @@ h1 {
   width: 40px;
   height: 40px;
   transition: background 0.2s;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translateY(0);
 }
 
 .dark-mode-toggle:hover {
@@ -504,6 +529,8 @@ body.dark-mode .modal-content {
   cursor: pointer;
   user-select: none;
   margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .section-content {
@@ -578,14 +605,47 @@ body.dark-mode .modal-content {
     margin: 10% auto;
   }
 
+  /* Move dark mode toggle below date on mobile */
+  .date-container .dark-mode-toggle {
+    position: static;
+    margin: 15px auto 0;
+    display: flex;
+  }
+
+  .header-container {
+    margin-bottom: 10px;
+  }
+
+  .current-date {
+    margin-bottom: 15px;
+  }
+
   .section-collapse-header {
     padding: 5px 0;
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .section-collapse-header h2 {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .section-collapse-header > div {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .copy-btn {
     padding: 10px 14px;
     font-size: 14px;
     min-height: 44px;
+    flex: 1;
+    min-width: 120px;
   }
 
   /* Better spacing for mobile */

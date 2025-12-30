@@ -8,15 +8,19 @@
 </head>
 <body>
 
-  <div class="header-container" style="position: relative; margin-bottom: 20px;">
-    <h1 style="margin: 0; text-align: center;">Duty Shift Notetaker</h1>
-    <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode" aria-label="Toggle dark mode" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-      </svg>
-    </button>
+  <div class="header-wrapper">
+    <div class="header-container">
+      <h1>Duty Shift Notetaker</h1>
+    </div>
+    <div class="date-container">
+      <p id="currentDate" class="current-date"></p>
+      <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </div>
   </div>
-  <p id="currentDate" class="current-date"></p>
 
 <section class="instructions">
   <div class="instructions-header" onclick="toggleInstructions()">
