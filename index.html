@@ -8,14 +8,22 @@
 </head>
 <body>
 
-  <h1>Duty Shift Notetaker</h1>
+  <div class="header-container" style="position: relative; margin-bottom: 20px;">
+    <h1 style="margin: 0; text-align: center;">Duty Shift Notetaker</h1>
+    <button id="darkModeToggle" class="dark-mode-toggle" onclick="toggleDarkMode()" title="Toggle dark mode" aria-label="Toggle dark mode" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+  <p id="currentDate" class="current-date"></p>
 
 <section class="instructions">
   <div class="instructions-header" onclick="toggleInstructions()">
     <h2>How to use</h2>
-    <span class="toggle-icon" id="instructionsToggle">−</span>
+    <span class="toggle-icon" id="instructionsToggle">+</span>
   </div>
-  <div class="instructions-content" id="instructionsContent">
+  <div class="instructions-content collapsed" id="instructionsContent">
     <p>
       <strong>Quick Links:</strong> Easy access to duty and incident forms.
     </p>
@@ -69,10 +77,10 @@
         </svg>
         10pm
       </button>
-      <span class="toggle-icon" id="roundsToggle">−</span>
+      <span class="toggle-icon" id="roundsToggle">+</span>
     </div>
   </div>
-  <div class="section-content" id="roundsContent">
+  <div class="section-content collapsed" id="roundsContent">
     <label>
       Round Time:
       <select id="roundTimeSelect">
@@ -114,10 +122,10 @@
         </svg>
         Rooms
       </button>
-      <span class="toggle-icon" id="lockoutsToggle">−</span>
+      <span class="toggle-icon" id="lockoutsToggle">+</span>
     </div>
   </div>
-  <div class="section-content" id="lockoutsContent">
+  <div class="section-content collapsed" id="lockoutsContent">
     <input id="nameInput" type="text" placeholder="Name" style="width: 100%;" />
     <input id="roomInput" type="text" placeholder="Room Number" style="width: 100%;" />
     <button onclick="addLockout()">Add Lockout</button>
@@ -138,11 +146,30 @@
         </svg>
         Copy
       </button>
-      <span class="toggle-icon" id="project100Toggle">−</span>
+      <span class="toggle-icon" id="project100Toggle">+</span>
     </div>
   </div>
-  <div class="section-content" id="project100Content">
+  <div class="section-content collapsed" id="project100Content">
     <textarea id="project100Notes" placeholder="Enter who you've seen here..." rows="6"></textarea>
+  </div>
+</section>
+
+<section>
+  <div class="section-collapse-header" onclick="toggleSection('additionalNotesContent', event)">
+    <h2>Additional Notes</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="copy-btn" onclick="copyAdditionalNotes(); event.stopPropagation();" title="Copy Additional notes">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy
+      </button>
+      <span class="toggle-icon" id="additionalNotesToggle">+</span>
+    </div>
+  </div>
+  <div class="section-content collapsed" id="additionalNotesContent">
+    <textarea id="additionalNotes" placeholder="Enter additional notes here..." rows="6"></textarea>
   </div>
 </section>
 
@@ -155,7 +182,7 @@
   <div id="lastShiftModal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="closeModal()">&times;</span>
-      <h2>Last Shift Archive</h2>
+      <h2>Shift Archives</h2>
       <div id="lastShiftData"></div>
     </div>
   </div>
