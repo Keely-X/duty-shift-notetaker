@@ -63,7 +63,7 @@ function addRound(location) {
 
   // Validate round number is a positive integer
   const roundNum = parseInt(roundNumInput, 10);
-  if (isNaN(roundNum) || roundNum <= 0 || roundNum !== parseFloat(roundNumInput)) {
+  if (isNaN(roundNum) || roundNum < 0 || roundNum !== parseFloat(roundNumInput)) {
     alert("Please enter a valid positive whole number (e.g., 1, 2, 3).");
     return;
   }
