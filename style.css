@@ -104,6 +104,17 @@ section {
   transition: background-color 0.3s ease;
 }
 
+.checklists-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.checklist-section {
+  flex: 1;
+  margin-bottom: 0;
+}
+
 body.dark-mode section {
   box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
@@ -288,6 +299,14 @@ li {
   font-size: 14px;
   font-weight: 500;
   transition: background 0.2s;
+}
+
+.speed-test-button {
+  background: #53585c;
+}
+
+.speed-test-button:hover {
+  background: #373a3d;
 }
 
 .instructions {
@@ -556,6 +575,25 @@ body.dark-mode .modal-content {
   section {
     padding: 15px;
     margin-bottom: 15px;
+  }
+
+  .checklists-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .checklist-section {
+    padding: 12px;
+  }
+
+  .checklist-section h2 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+
+  .checklist-section label {
+    font-size: 0.9em;
+    margin-bottom: 8px;
   }
 
   button {

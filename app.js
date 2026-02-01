@@ -1,16 +1,16 @@
 const ROUTES = {
   A: [
+    "Basement",
+    "Ground",
+    "Level 9",
+    "Level 10"
+  ],
+  B: [
     "Academic Commons G",
     "Academic Commons 1",
     "Academic Commons 2",
     "Academic Commons 3",
     "Conservatory"
-  ],
-  B: [
-    "Basement",
-    "Ground",
-    "Level 9",
-    "Level 10"
   ]
 };
 
@@ -32,7 +32,14 @@ let editingLockoutIndex = null;
 
 function loadShift() {
   const saved = localStorage.getItem("currentShift");
-  if (saved) return JSON.parse(saved);
+  if (saved) {
+    const shift = JSON.parse(saved);
+    // Ensure timeChecks exists for backward compatibility
+    if (!shift.timeChecks) {
+      shift.timeChecks = { "6pm": false, "10pm": false, "9am": false };
+    }
+    return shift;
+  }
 
   return {
     rounds: [],
@@ -40,6 +47,7 @@ function loadShift() {
     project100Notes: "",
     additionalNotes: "",
     reports: { 1:false, 2:false, 3:false, 4:false, 5:false },
+    timeChecks: { "6pm": false, "10pm": false, "9am": false },
     startedAt: new Date().toISOString()
   };
 }
@@ -224,6 +232,11 @@ function updateAdditionalNotes() {
 
 function toggleReport(num) {
   currentShift.reports[num] = !currentShift.reports[num];
+  saveShift();
+}
+
+function toggleTimeCheck(time) {
+  currentShift.timeChecks[time] = !currentShift.timeChecks[time];
   saveShift();
 }
 
@@ -490,6 +503,18 @@ function deleteArchiveShift(index, event) {
   viewRecent();
 }
 
+function getDefaultRoundTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  
+  // After 9:30pm (21:30), default to 10pm
+  if (hours > 21 || (hours === 21 && minutes >= 30)) {
+    return "10pm";
+  }
+  return "8pm";
+}
+
 function resetShift() {
   if (!confirm("WARNING: Check if you have submitted the relevant forms.")) return;
 
@@ -512,7 +537,7 @@ function resetShift() {
   currentShift = loadShift();
   
   document.getElementById("routeSelect").value = "A";
-  document.getElementById("roundTimeSelect").value = "8pm";
+  document.getElementById("roundTimeSelect").value = getDefaultRoundTime();
   updateLocations();
   
   render();
@@ -561,6 +586,12 @@ function render() {
     document.querySelector(`input[onchange="toggleReport(${i})"]`).checked =
       currentShift.reports[i];
   }
+
+  // Restore time check states
+  const timeChecks = currentShift.timeChecks || { "6pm": false, "10pm": false, "9am": false };
+  document.getElementById("check6pm").checked = timeChecks["6pm"] || false;
+  document.getElementById("check10pm").checked = timeChecks["10pm"] || false;
+  document.getElementById("check9am").checked = timeChecks["9am"] || false;
 }
 
 function toggleInstructions() {
@@ -637,7 +668,7 @@ loadDarkMode();
 displayCurrentDate();
 initializeCollapsedSections();
 document.getElementById("routeSelect").value = "A";
-document.getElementById("roundTimeSelect").value = "8pm";
+document.getElementById("roundTimeSelect").value = getDefaultRoundTime();
 updateLocations();
 render();
 

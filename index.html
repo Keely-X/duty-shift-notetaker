@@ -46,20 +46,30 @@
   </div>
 </section>
 
-  <section>
-    <h2>Reports Checklist</h2>
-    <label><input type="checkbox" onchange="toggleReport(1)"> 8pm Round</label><br>
-    <label><input type="checkbox" onchange="toggleReport(2)"> U18 Curfew Check</label><br>
-    <label><input type="checkbox" onchange="toggleReport(3)"> 10pm Round</label><br>
-    <label><input type="checkbox" onchange="toggleReport(4)"> Lockouts</label><br>
-    <label><input type="checkbox" onchange="toggleReport(5)"> Project 100</label>
-  </section>
+  <div class="checklists-container">
+    <section class="checklist-section">
+      <h2>Reports Checklist</h2>
+      <label><input type="checkbox" onchange="toggleReport(1)"> 8pm Round</label><br>
+      <label><input type="checkbox" onchange="toggleReport(2)"> U18 Curfew Check</label><br>
+      <label><input type="checkbox" onchange="toggleReport(3)"> 10pm Round</label><br>
+      <label><input type="checkbox" onchange="toggleReport(4)"> Lockouts</label><br>
+      <label><input type="checkbox" onchange="toggleReport(5)"> Project 100</label>
+    </section>
+
+    <section class="checklist-section">
+      <h2>Internet Speed Test</h2>
+      <label><input type="checkbox" id="check6pm" onchange="toggleTimeCheck('6pm')"> 6pm</label><br>
+      <label><input type="checkbox" id="check10pm" onchange="toggleTimeCheck('10pm')"> 10pm</label><br>
+      <label><input type="checkbox" id="check9am" onchange="toggleTimeCheck('9am')"> 9am</label>
+    </section>
+  </div>
 
   <section>
     <h2>Quick Links</h2>
     <div class="links-container">
       <a href="https://app.smartsheet.com/b/form/93be0b70828c49e28c2e3690cd2adfd8" target="_blank" class="link-button">Duty Form</a>
       <a href="https://app.smartsheet.com/b/form/d3c95bc5c09e4cb686fbf956dc77e161" target="_blank" class="link-button">Incident Form</a>
+      <a href="https://www.speedtest.net/" target="_blank" class="link-button speed-test-button">Internet Speed Test</a>
     </div>
   </section>
 
@@ -96,8 +106,8 @@
     <label>
       Route:
       <select id="routeSelect" onchange="updateLocations()">
-        <option value="A">Academic Commons | Conservatory</option>
-        <option value="B">Basement | Ground | Level 9 | Level 10</option>
+        <option value="A">Basement | Ground | Level 9 | Level 10</option>
+        <option value="B">Academic Commons | Conservatory</option>
       </select>
     </label>
 
