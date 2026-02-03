@@ -29,19 +29,16 @@
   </div>
   <div class="instructions-content collapsed" id="instructionsContent">
     <p>
-      <strong>Quick Links:</strong> Easy access to duty and incident forms.
+      <strong>Copy Button:</strong> Quickly copy your round/lockout notes to paste into duty forms. 
     </p>
     <p>
-      <strong>Copy Button:</strong> Copy your round/lockout notes to paste into duty forms. 
+      <strong>Quick Reset:</strong> Press "End & Reset Shift" to archive all data from your current shift. 
     </p>
     <p>
-      <strong>Quick Reset:</strong> Click "End & Reset Shift" to delete all data from your current shift. 
+      <strong>Recent Archive:</strong> Press "View Recent" to view notes from your most recent shifts.
     </p>
     <p>
-      <strong>Recent Archive:</strong> Click "View Recent" to view notes from your most recent shift.
-    </p>
-    <p>
-      <strong>Auto-Save:</strong> Your notes are saved automatically, even if you close the page.
+      <strong>Auto-Save:</strong> Your notes are saved automatically to your local device.
     </p>
   </div>
 </section>
@@ -72,6 +69,37 @@
       <a href="https://www.speedtest.net/" target="_blank" class="link-button speed-test-button">Internet Speed Test</a>
     </div>
   </section>
+
+<section>
+  <div class="section-collapse-header" onclick="toggleSection('lockoutsContent', event)">
+    <h2>Lockouts</h2>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="copy-btn" onclick="copyLockoutsTimeAndName(); event.stopPropagation();" title="Copy Names">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Names
+      </button>
+      <button class="copy-btn" onclick="copyLockoutsRooms(); event.stopPropagation();" title="Copy Room Numbers">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Rooms
+      </button>
+      <span class="toggle-icon" id="lockoutsToggle">+</span>
+    </div>
+  </div>
+  <div class="section-content collapsed" id="lockoutsContent">
+    <input id="nameInput" type="text" placeholder="Name" style="width: 100%;" />
+    <input id="roomInput" type="text" placeholder="Room Number" style="width: 100%;" />
+    <button onclick="addLockout()">Add Lockout</button>
+    
+    <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Lockout History</h3>
+    <ul id="lockoutsList"></ul>
+  </div>
+</section>
 
 <section>
   <div class="section-collapse-header" onclick="toggleSection('roundsContent', event)">
@@ -115,37 +143,6 @@
 
     <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Round History</h3>
     <ul id="roundsList"></ul>
-  </div>
-</section>
-
-<section>
-  <div class="section-collapse-header" onclick="toggleSection('lockoutsContent', event)">
-    <h2>Lockouts</h2>
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <button class="copy-btn" onclick="copyLockoutsTimeAndName(); event.stopPropagation();" title="Copy Names">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Names
-      </button>
-      <button class="copy-btn" onclick="copyLockoutsRooms(); event.stopPropagation();" title="Copy Room Numbers">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Rooms
-      </button>
-      <span class="toggle-icon" id="lockoutsToggle">+</span>
-    </div>
-  </div>
-  <div class="section-content collapsed" id="lockoutsContent">
-    <input id="nameInput" type="text" placeholder="Name" style="width: 100%;" />
-    <input id="roomInput" type="text" placeholder="Room Number" style="width: 100%;" />
-    <button onclick="addLockout()">Add Lockout</button>
-    
-    <h3 style="margin-top: 25px; margin-bottom: 10px; color: #666; font-size: 1.1em;">Lockout History</h3>
-    <ul id="lockoutsList"></ul>
   </div>
 </section>
 
