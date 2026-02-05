@@ -26,6 +26,17 @@ const SVG_ICONS = {
   </svg>`
 };
 
+// Shared date helpers
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+function formatDate(date) {
+  const day = DAYS[date.getDay()];
+  const dayNum = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day} ${dayNum}/${month}/${year}`;
+}
+
 let currentShift = loadShift();
 let editingRoundIndex = null;
 let editingLockoutIndex = null;
@@ -313,13 +324,7 @@ function copyToClipboard(text, successMessage) {
 
 function formatShiftDate(dateString) {
   if (!dateString) return '';
-  const date = new Date(dateString);
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const day = days[date.getDay()];
-  const dayNum = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day} ${dayNum}/${month}/${year}`;
+  return formatDate(new Date(dateString));
 }
 
 function viewShiftDetail(shift) {
@@ -506,10 +511,9 @@ function deleteArchiveShift(index, event) {
 function getDefaultRoundTime() {
   const now = new Date();
   const hours = now.getHours();
-  const minutes = now.getMinutes();
   
-  // After 9:30pm (21:30), default to 10pm
-  if (hours > 21 || (hours === 21 && minutes >= 30)) {
+  // After 9:00pm (21:00), default to 10pm
+  if (hours > 21) {
     return "10pm";
   }
   return "8pm";
@@ -619,14 +623,7 @@ function toggleSection(sectionId, event) {
 
 // Format and display current date
 function displayCurrentDate() {
-  const now = new Date();
-  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const day = days[now.getDay()];
-  const date = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
-  
-  document.getElementById("currentDate").textContent = `${day} ${date}/${month}/${year}`;
+  document.getElementById("currentDate").textContent = formatDate(new Date());
 }
 
 // Dark mode functionality
