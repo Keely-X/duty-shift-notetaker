@@ -71,19 +71,12 @@ function saveShift() {
 function addRound(location) {
   const roundTime = document.getElementById("roundTimeSelect").value;
   const route = document.getElementById("routeSelect").value;
-  const inputId = `round-input-${location.replace(/\s/g, '-')}`;
-  const roundNumInput = document.getElementById(inputId).value;
+  const locationKey = location.replace(/\s/g, '-');
+  const roundNum = locationRoundNumbers[locationKey] || 0;
 
-  // Validate round number is provided
-  if (!roundNumInput) {
-    alert("Please enter a round number.");
-    return;
-  }
-
-  // Validate round number is a positive integer
-  const roundNum = parseInt(roundNumInput, 10);
-  if (isNaN(roundNum) || roundNum < 0 || roundNum !== parseFloat(roundNumInput)) {
-    alert("Please enter a valid positive whole number (e.g., 1, 2, 3).");
+  // Validate round number is a non-negative integer
+  if (isNaN(roundNum) || roundNum < 0) {
+    alert("Please enter a valid non-negative whole number (e.g., 0, 1, 2, 3).");
     return;
   }
 
@@ -107,7 +100,9 @@ function addRound(location) {
     time: new Date().toLocaleTimeString()
   });
 
-  document.getElementById(inputId).value = "";
+  // Reset to 0 after adding
+  locationRoundNumbers[locationKey] = 0;
+  updateRoundDisplay(locationKey);
   saveShift();
 }
 
@@ -184,6 +179,9 @@ function saveLockoutEdit() {
   saveShift();
 }
 
+// Store current round number for each location
+const locationRoundNumbers = {};
+
 function updateLocations() {
   const route = document.getElementById("routeSelect").value;
   const container = document.getElementById("locationsContainer");
@@ -191,23 +189,64 @@ function updateLocations() {
   container.innerHTML = "";
 
   ROUTES[route].forEach(loc => {
-    const inputId = `round-input-${loc.replace(/\s/g, '-')}`;
+    const locationKey = loc.replace(/\s/g, '-');
+    const displayId = `round-display-${locationKey}`;
+    const inputId = `round-input-${locationKey}`;
+    
+    // Initialize number for this location if not exists
+    if (locationRoundNumbers[locationKey] === undefined) {
+      locationRoundNumbers[locationKey] = 0;
+    }
     
     const row = document.createElement("div");
     row.className = "location-row";
     
     row.innerHTML = `
       <span class="location-name">${loc}</span>
-      <input
-        id="${inputId}"
-        type="number"
-        placeholder="Round #"
-      />
+      <div class="round-counter">
+        <button class="counter-btn decrement-btn" onclick="decrementRound('${locationKey}')">−</button>
+        <div class="round-number-display" id="${displayId}">${locationRoundNumbers[locationKey]}</div>
+        <button class="counter-btn increment-btn" onclick="incrementRound('${locationKey}')">+</button>
+      </div>
       <button onclick="addRound('${loc}')">Add</button>
+      <input type="hidden" id="${inputId}" value="${locationRoundNumbers[locationKey]}" />
     `;
     
     container.appendChild(row);
   });
+}
+
+function incrementRound(locationKey) {
+  if (locationRoundNumbers[locationKey] === undefined) {
+    locationRoundNumbers[locationKey] = 0;
+  }
+  locationRoundNumbers[locationKey]++;
+  updateRoundDisplay(locationKey);
+}
+
+function decrementRound(locationKey) {
+  if (locationRoundNumbers[locationKey] === undefined) {
+    locationRoundNumbers[locationKey] = 0;
+  }
+  // Don't allow negative numbers
+  if (locationRoundNumbers[locationKey] > 0) {
+    locationRoundNumbers[locationKey]--;
+    updateRoundDisplay(locationKey);
+  }
+}
+
+function updateRoundDisplay(locationKey) {
+  const displayId = `round-display-${locationKey}`;
+  const inputId = `round-input-${locationKey}`;
+  const display = document.getElementById(displayId);
+  const input = document.getElementById(inputId);
+  
+  if (display) {
+    display.textContent = locationRoundNumbers[locationKey];
+  }
+  if (input) {
+    input.value = locationRoundNumbers[locationKey];
+  }
 }
 
 function addLockout() {
