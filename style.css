@@ -282,6 +282,7 @@ li {
   border: 1px solid var(--border-color);
   border-radius: 4px;
   padding: 4px;
+  touch-action: manipulation;
 }
 
 .counter-btn {
@@ -301,6 +302,8 @@ li {
   transition: all 0.2s;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
   line-height: 1;
   padding: 0;
 }
