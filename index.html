@@ -32,10 +32,10 @@
       <strong>Copy Button:</strong> Quickly copy your rounds or lockouts notes to paste into duty forms. 
     </p>
     <p>
-      <strong>Additional Notes:</strong> Use for things like maintenance reports or anything else that happens. 
+      <strong>Quick Reset:</strong> Press "End & Reset Shift" to reset all data from your current shift. 
     </p>
     <p>
-      <strong>Quick Reset:</strong> Press "End & Reset Shift" to archive all data from your current shift. 
+      <strong>Additional Notes:</strong> Use for things like maintenance reports or anything else that happens. 
     </p>
     <p>
       <strong>Auto-Save:</strong> Your notes are saved automatically to your local device.
@@ -50,7 +50,7 @@
       <label><input type="checkbox" onchange="toggleReport(2)"> U18 Curfew Check</label><br>
       <label><input type="checkbox" onchange="toggleReport(3)"> 10pm Round</label><br>
       <label><input type="checkbox" onchange="toggleReport(4)"> Lockouts</label><br>
-      <label><input type="checkbox" onchange="toggleReport(5)"> Project 100</label>
+      <label><input type="checkbox" onchange="toggleReport(5)"> P100</label>
     </section>
 
     <section class="checklist-section">
@@ -148,9 +148,9 @@
 
 <section>
   <div class="section-collapse-header" onclick="toggleSection('project100Content', event)">
-    <h2>Project 100</h2>
+    <h2>P100</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button class="copy-btn" onclick="copyProject100(); event.stopPropagation();" title="Copy Project 100 notes">
+      <button class="copy-btn" onclick="copyProject100(); event.stopPropagation();" title="Copy P100 notes">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
@@ -180,7 +180,7 @@
     </div>
   </div>
   <div class="section-content collapsed" id="additionalNotesContent">
-    <textarea id="additionalNotes" placeholder="Enter additional notes here..." rows="6"></textarea>
+    <textarea id="additionalNotes" placeholder="Enter any additional notes here. (Maintenance, incident reports...etc)" rows="6"></textarea>
   </div>
 </section>
 
