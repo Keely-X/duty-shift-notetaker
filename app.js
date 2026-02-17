@@ -204,15 +204,53 @@ function updateLocations() {
     row.innerHTML = `
       <span class="location-name">${loc}</span>
       <div class="round-counter">
-        <button class="counter-btn decrement-btn" onclick="decrementRound('${locationKey}')">−</button>
+        <button class="counter-btn decrement-btn" data-location-key="${locationKey}">−</button>
         <div class="round-number-display" id="${displayId}">${locationRoundNumbers[locationKey]}</div>
-        <button class="counter-btn increment-btn" onclick="incrementRound('${locationKey}')">+</button>
+        <button class="counter-btn increment-btn" data-location-key="${locationKey}">+</button>
       </div>
       <button onclick="addRound('${loc}')">Add</button>
       <input type="hidden" id="${inputId}" value="${locationRoundNumbers[locationKey]}" />
     `;
     
     container.appendChild(row);
+    
+    // Add touch event listeners to prevent zoom
+    const decrementBtn = row.querySelector('.decrement-btn');
+    const incrementBtn = row.querySelector('.increment-btn');
+    
+    // Prevent zoom and handle clicks
+    [decrementBtn, incrementBtn].forEach(btn => {
+      // Prevent all default touch behavior to stop zoom
+      btn.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+      
+      btn.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+      }, { passive: false });
+      
+      // Handle touchend to trigger the action
+      btn.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Trigger the increment/decrement
+        if (btn.classList.contains('increment-btn')) {
+          incrementRound(locationKey);
+        } else if (btn.classList.contains('decrement-btn')) {
+          decrementRound(locationKey);
+        }
+      }, { passive: false });
+      
+      // Also handle regular clicks for desktop
+      btn.addEventListener('click', function(e) {
+        if (btn.classList.contains('increment-btn')) {
+          incrementRound(locationKey);
+        } else if (btn.classList.contains('decrement-btn')) {
+          decrementRound(locationKey);
+        }
+      });
+    });
   });
 }
 
