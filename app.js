@@ -29,6 +29,8 @@ const SVG_ICONS = {
 // Shared date helpers
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+const PROJECT100_DEFAULT = "I have seen these residents around Little Hall during my duty shift: \n";
+
 function formatDate(date) {
   const day = DAYS[date.getDay()];
   const dayNum = String(date.getDate()).padStart(2, '0');
@@ -49,13 +51,16 @@ function loadShift() {
     if (!shift.timeChecks) {
       shift.timeChecks = { "6pm": false, "10pm": false, "9am": false };
     }
+    if (!shift.project100Notes) {
+      shift.project100Notes = PROJECT100_DEFAULT;
+    }
     return shift;
   }
 
   return {
     rounds: [],
     lockouts: [],
-    project100Notes: "",
+    project100Notes: PROJECT100_DEFAULT,
     additionalNotes: "",
     reports: { 1:false, 2:false, 3:false, 4:false, 5:false },
     timeChecks: { "6pm": false, "10pm": false, "9am": false },
@@ -343,29 +348,17 @@ function copyRounds(roundTime) {
   copyToClipboard(text, `${roundTime} rounds copied to clipboard!`);
 }
 
-function copyLockouts(type) {
+function copyLockouts() {
   if (currentShift.lockouts.length === 0) {
     alert("No lockouts to copy!");
     return;
   }
 
-  const text = type === 'names' 
-    ? currentShift.lockouts.map(l => `${l.time} - ${l.name}`).join('\n')
-    : currentShift.lockouts.map(l => l.room).join('\n');
+  const text = currentShift.lockouts
+    .map(l => `${l.time} - ${l.name} (${l.room})`)
+    .join('\n');
 
-  const message = type === 'names' 
-    ? "Time and names copied to clipboard!" 
-    : "Room numbers copied to clipboard!";
-
-  copyToClipboard(text, message);
-}
-
-function copyLockoutsTimeAndName() {
-  copyLockouts('names');
-}
-
-function copyLockoutsRooms() {
-  copyLockouts('rooms');
+  copyToClipboard(text, "Lockouts copied to clipboard!");
 }
 
 function copyProject100() {
@@ -660,7 +653,7 @@ function render() {
       )
     ).join("");
 
-  document.getElementById("project100Notes").value = currentShift.project100Notes || "";
+  document.getElementById("project100Notes").value = currentShift.project100Notes;
   document.getElementById("additionalNotes").value = currentShift.additionalNotes || "";
 
   for (let i = 1; i <= 5; i++) {

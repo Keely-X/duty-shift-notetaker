@@ -35,10 +35,10 @@
       <strong>Quick Reset:</strong> Press red button to reset all data from your current shift. 
     </p>
     <p>
-      <strong>Additional Notes:</strong> Use for things like maintenance reports or anything else that happens. 
+      <strong>Auto-Save:</strong> Your notes are saved automatically even if you close the browser.
     </p>
     <p>
-      <strong>Auto-Save:</strong> Your notes are saved automatically even if you close the browser.
+      <strong>Add to Home Screen:</strong> Instead of opening this website every time. You can save it as an app on your phone: Open on Safari, tap 'Share', then 'Add to Home Screen'.
     </p>
   </div>
 </section>
@@ -73,19 +73,12 @@
   <div class="section-collapse-header" onclick="toggleSection('lockoutsContent', event)">
     <h2>Lockouts</h2>
     <div style="display: flex; align-items: center; gap: 10px;">
-      <button class="copy-btn" onclick="copyLockoutsTimeAndName(); event.stopPropagation();" title="Copy Names">
+      <button class="copy-btn" onclick="copyLockouts(); event.stopPropagation();" title="Copy lockouts">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
           <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
         </svg>
-        Names
-      </button>
-      <button class="copy-btn" onclick="copyLockoutsRooms(); event.stopPropagation();" title="Copy Room Numbers">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Rooms
+        Copy
       </button>
       <span class="toggle-icon" id="lockoutsToggle">+</span>
     </div>
@@ -160,7 +153,7 @@
     </div>
   </div>
   <div class="section-content collapsed" id="project100Content">
-    <textarea id="project100Notes" placeholder="Enter who you've seen here..." rows="6"></textarea>
+    <textarea id="project100Notes" rows="6"></textarea>
   </div>
 </section>
 
